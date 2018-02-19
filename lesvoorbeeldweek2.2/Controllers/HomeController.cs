@@ -8,9 +8,23 @@ namespace lesvoorbeeldweek2._2.Controllers
 {
     public class HomeController : Controller
     {
-        public string Index(string name)
+        private string[] groenten = { "rode kool", "spruitjes", "carote", "zurkool" };
+
+
+        public ViewResult Index(string name)
         {
-            return $"Hallo {name}";
+            ViewBag.date = DateTime.Now.Hour < 12 ? "Goeiemorgen" : "goeienamiddag";
+            return View();
         }
-    }
+
+        public ViewResult Groenten(string zoekGroente)
+        {
+            ViewBag.Groenten = groenten;
+            if (!string.IsNullOrEmpty(zoekGroente))
+            ViewBag.Zoekresultaat = $"de gezochte groente is " +
+                                    $"de {Array.IndexOf(groenten, zoekGroente) + 1}e uit de lijst";
+
+
+        }
+}
 }
